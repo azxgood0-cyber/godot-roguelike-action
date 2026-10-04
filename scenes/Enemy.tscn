@@ -15,9 +15,8 @@ move_speed = 95.0
 gravity = 1200.0
 jump_force = 400.0
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 0.4, 0.4, 1)
-scale = Vector2(20, 20)
+[node name="Body" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-10, -10, 10, -10, 10, 10, -10, 10)
 color = Color(1, 0.4, 0.4, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

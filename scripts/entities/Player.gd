@@ -28,7 +28,13 @@ func _physics_process(delta: float) -> void:
         velocity.y = 0.0
 
 func handle_input() -> void:
-    input_dir = Input.get_axis("move_left", "move_right")
+    if Input.is_action_pressed("move_left"):
+        input_dir = -1.0
+    elif Input.is_action_pressed("move_right"):
+        input_dir = 1.0
+    else:
+        input_dir = 0.0
+
     if input_dir != 0.0:
         facing = sign(input_dir)
 
@@ -65,11 +71,9 @@ func start_dash() -> void:
     is_dashing = true
     dash_timer = dash_duration
     velocity.x = facing * dash_speed
-    EventBus.emit_ability_cast("dash")
 
 func perform_attack() -> void:
     attack_cooldown = 0.32
-
     var enemies = get_tree().get_nodes_in_group("enemy")
     for enemy in enemies:
         if not is_instance_valid(enemy):
@@ -83,7 +87,6 @@ func use_ability_1() -> void:
     if energy < 25.0:
         return
     energy -= 25.0
-
     var enemies = get_tree().get_nodes_in_group("enemy")
     for enemy in enemies:
         if not is_instance_valid(enemy):
@@ -92,13 +95,10 @@ func use_ability_1() -> void:
         if distance <= 120.0:
             enemy.apply_damage(30.0, Vector2(facing * 340.0, -210.0))
 
-    EventBus.emit_ability_cast("slash_wave")
-
 func use_ability_2() -> void:
     if energy < 35.0:
         return
     energy -= 35.0
-
     var enemies = get_tree().get_nodes_in_group("enemy")
     for enemy in enemies:
         if not is_instance_valid(enemy):
@@ -106,5 +106,3 @@ func use_ability_2() -> void:
         var distance := global_position.distance_to(enemy.global_position)
         if distance <= 160.0:
             enemy.apply_damage(26.0, Vector2(facing * 260.0, -180.0))
-
-    EventBus.emit_ability_cast("burst")

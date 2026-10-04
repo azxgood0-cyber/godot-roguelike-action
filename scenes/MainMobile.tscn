@@ -26,8 +26,8 @@ position = Vector2(0, 160)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
 shape = SubResource("RectangleShape2D_1")
 
-[node name="Sprite2D" type="Sprite2D" parent="Ground"]
-scale = Vector2(2000, 40)
+[node name="Body" type="Polygon2D" parent="Ground"]
+polygon = PackedVector2Array(-1000, 0, 1000, 0, 1000, 40, -1000, 40)
 color = Color(0.18, 0.2, 0.25, 1)
 
 [node name="LeftWall" type="StaticBody2D" parent="."]

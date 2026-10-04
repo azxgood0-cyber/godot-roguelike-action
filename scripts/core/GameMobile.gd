@@ -8,9 +8,9 @@ var camera: Camera2D
 
 func _ready() -> void:
     player = spawn_player()
-    spawn_enemy(Vector2(0, -100))
-    spawn_enemy(Vector2(200, -100))
-    spawn_enemy(Vector2(400, -100))
+    spawn_enemy(Vector2(160, -80))
+    spawn_enemy(Vector2(320, -80))
+    spawn_enemy(Vector2(500, -80))
     setup_camera()
     setup_mobile_ui()
 
@@ -30,7 +30,7 @@ func setup_camera() -> void:
     camera.enabled = true
     camera.position_smoothing_enabled = true
     camera.position_smoothing_speed = 7.0
-    camera.zoom = Vector2(1.2, 1.2)
+    camera.zoom = Vector2(1.0, 1.0)
     add_child(camera)
     camera.make_current()
 
