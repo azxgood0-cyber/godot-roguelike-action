@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1f0nrx4w3a4l"]
+
+[ext_resource type="script" path="res://scripts/core/Game.gd" id="1_dv4j8"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_dv4j8")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -800.0
+offset_top = -500.0
+offset_right = 800.0
+offset_bottom = 500.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.06, 0.08, 0.11, 1)
