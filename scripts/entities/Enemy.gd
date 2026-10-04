@@ -10,6 +10,7 @@ var attack_cooldown: float = 0.0
 
 func _ready() -> void:
     super._ready()
+    add_to_group("enemy")
     player_ref = get_tree().get_first_node_in_group("player")
 
 func _physics_process(delta: float) -> void:
@@ -20,6 +21,7 @@ func _physics_process(delta: float) -> void:
     attack_cooldown = max(0.0, attack_cooldown - delta)
 
     if player_ref == null:
+        player_ref = get_tree().get_first_node_in_group("player")
         return
 
     var to_player: Vector2 = player_ref.global_position - global_position
@@ -38,7 +40,8 @@ func _physics_process(delta: float) -> void:
 
 func attack_player() -> void:
     attack_cooldown = 0.8
-    if player_ref.has_method("apply_damage"):
-        player_ref.apply_damage(attack_damage, Vector2(facing * 240.0, -180.0))
+    if player_ref != null and player_ref.has_method("apply_damage"):
+        var direction: float = 1.0 if player_ref.global_position.x >= global_position.x else -1.0
+        player_ref.apply_damage(attack_damage, Vector2(direction * 240.0, -180.0))
 
     EventBus.emit_ability_cast("enemy_attack")

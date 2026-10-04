@@ -8,6 +8,7 @@ Fitur utama:
 - Sistem enemy AI dasar
 - EventBus untuk komunikasi antar sistem
 - Struktur modular untuk pengembangan roguelike lebih lanjut
+- Prototipe siap dieksekusi dengan ground, kamera, dan musuh dasar
 
 Struktur folder:
 - scenes/
@@ -21,4 +22,4 @@ Cara membuka di Godot:
 4. Tekan Run
 
 Catatan:
-Project ini adalah skeleton siap dikembangkan menjadi game penuh. Anda bisa langsung menambahkan room generator, item system, boss, UI, dan run progression.
+Project ini sudah memiliki foundation yang bisa dimainkan sebagai prototype action roguelike 2D. Anda dapat melanjutkan dengan room generation, boss, item, UI, save/load, dan proper ability system.

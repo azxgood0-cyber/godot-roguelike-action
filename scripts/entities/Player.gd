@@ -15,6 +15,7 @@ var attack_cooldown: float = 0.0
 
 func _ready() -> void:
     super._ready()
+    add_to_group("player")
     health = max_health
     energy = energy_max
 
@@ -51,6 +52,7 @@ func handle_input() -> void:
 
 func update_timings(delta: float) -> void:
     attack_cooldown = max(0.0, attack_cooldown - delta)
+    energy = min(energy_max, energy + delta * 8.0)
 
     if is_dashing:
         dash_timer -= delta
@@ -67,33 +69,41 @@ func start_dash() -> void:
 
 func perform_attack() -> void:
     attack_cooldown = 0.32
-    var hitbox: Hitbox = Hitbox.new()
-    hitbox.position = Vector2(28 * facing, 0)
-    hitbox.damage = attack_damage
-    hitbox.knockback_strength = 160.0
-    hitbox.monitoring = true
-    add_child(hitbox)
-    await get_tree().create_timer(0.08).timeout
-    if is_instance_valid(hitbox):
-        hitbox.queue_free()
+    var hit_enemies: Array = get_tree().get_nodes_in_group("enemy")
+    for enemy in hit_enemies:
+        if not is_instance_valid(enemy):
+            continue
+        var distance := global_position.distance_to(enemy.global_position)
+        if distance <= 70.0:
+            enemy.apply_damage(attack_damage, Vector2(facing * 240.0, -150.0))
+            break
 
 func use_ability_1() -> void:
     if energy < 25.0:
         return
     energy -= 25.0
-    velocity.x = facing * (move_speed + 150.0)
+    var hit_enemies: Array = get_tree().get_nodes_in_group("enemy")
+    for enemy in hit_enemies:
+        if not is_instance_valid(enemy):
+            continue
+        var distance := global_position.distance_to(enemy.global_position)
+        if distance <= 120.0:
+            enemy.apply_damage(30.0, Vector2(facing * 340.0, -210.0))
     EventBus.emit_ability_cast("slash_wave")
 
 func use_ability_2() -> void:
     if energy < 35.0:
         return
     energy -= 35.0
-    var burst: Hitbox = Hitbox.new()
-    burst.position = Vector2(0, 0)
-    burst.damage = 26.0
-    burst.knockback_strength = 220.0
-    add_child(burst)
+    var hit_enemies: Array = get_tree().get_nodes_in_group("enemy")
+    for enemy in hit_enemies:
+        if not is_instance_valid(enemy):
+            continue
+        var distance := global_position.distance_to(enemy.global_position)
+        if distance <= 160.0:
+            enemy.apply_damage(26.0, Vector2(facing * 260.0, -180.0))
     EventBus.emit_ability_cast("burst")
-    await get_tree().create_timer(0.12).timeout
-    if is_instance_valid(burst):
-        burst.queue_free()
+
+func _input(event: InputEvent) -> void:
+    if event.is_action_pressed("dash"):
+        can_dash = true

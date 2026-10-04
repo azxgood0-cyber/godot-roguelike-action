@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://ee1dq2a7m9r0"]
 
-[ext_resource type="script" path="res://scenes/Enemy.gd" id="1_4u8ls"]
+[ext_resource type="script" path="res://scripts/entities/Enemy.gd" id="1_4u8ls"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
 size = Vector2(20, 20)
@@ -24,8 +24,8 @@ color = Color(1, 0.4, 0.4, 1)
 shape = SubResource("RectangleShape2D_1")
 
 [node name="Hurtbox" type="Area2D" parent="."]
-collision_layer = 1
-collision_mask = 1
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_2")
