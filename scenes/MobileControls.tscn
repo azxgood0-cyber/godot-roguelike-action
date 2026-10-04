@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfqhb5pj8k2m"]
+
+[ext_resource type="script" path="res://scripts/ui/MobileControls.gd" id="1_h7d9q"]
+
+[node name="MobileControls" type="CanvasLayer"]
+script = ExtResource("1_h7d9q")

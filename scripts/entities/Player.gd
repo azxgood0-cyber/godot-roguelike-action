@@ -69,8 +69,9 @@ func start_dash() -> void:
 
 func perform_attack() -> void:
     attack_cooldown = 0.32
-    var hit_enemies: Array = get_tree().get_nodes_in_group("enemy")
-    for enemy in hit_enemies:
+
+    var enemies = get_tree().get_nodes_in_group("enemy")
+    for enemy in enemies:
         if not is_instance_valid(enemy):
             continue
         var distance := global_position.distance_to(enemy.global_position)
@@ -82,28 +83,28 @@ func use_ability_1() -> void:
     if energy < 25.0:
         return
     energy -= 25.0
-    var hit_enemies: Array = get_tree().get_nodes_in_group("enemy")
-    for enemy in hit_enemies:
+
+    var enemies = get_tree().get_nodes_in_group("enemy")
+    for enemy in enemies:
         if not is_instance_valid(enemy):
             continue
         var distance := global_position.distance_to(enemy.global_position)
         if distance <= 120.0:
             enemy.apply_damage(30.0, Vector2(facing * 340.0, -210.0))
+
     EventBus.emit_ability_cast("slash_wave")
 
 func use_ability_2() -> void:
     if energy < 35.0:
         return
     energy -= 35.0
-    var hit_enemies: Array = get_tree().get_nodes_in_group("enemy")
-    for enemy in hit_enemies:
+
+    var enemies = get_tree().get_nodes_in_group("enemy")
+    for enemy in enemies:
         if not is_instance_valid(enemy):
             continue
         var distance := global_position.distance_to(enemy.global_position)
         if distance <= 160.0:
             enemy.apply_damage(26.0, Vector2(facing * 260.0, -180.0))
-    EventBus.emit_ability_cast("burst")
 
-func _input(event: InputEvent) -> void:
-    if event.is_action_pressed("dash"):
-        can_dash = true
+    EventBus.emit_ability_cast("burst")

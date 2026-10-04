@@ -17,6 +17,6 @@ func reset_run() -> void:
         "weapon": "starter_blade"
     }
 
-func level_completed() -> void:
+func advance_room() -> void:
     current_run["room_index"] += 1
     current_run["difficulty"] = 1.0 + (current_run["room_index"] * 0.12)

@@ -16,8 +16,6 @@ var knockback_velocity: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
     health = max_health
-    if has_method("setup_collision"):
-        setup_collision()
 
 func _physics_process(delta: float) -> void:
     if not is_alive:
